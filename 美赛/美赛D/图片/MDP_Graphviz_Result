@@ -1,0 +1,26 @@
+// Data Driven MDP
+digraph MDP_Process {
+	rankdir=TB size="10,12"
+	node [fontname="Microsoft YaHei" margin=0.2 shape=box style=filled]
+	edge [fontname="Microsoft YaHei"]
+	Input [label="【输入状态 State】
+阵容: Luka + LeBron + Bronny
+总薪资: $165.6M
+商业流量分: 47.5" fillcolor="#E1D5E7" shape=folder]
+	Phase1 [label="【阶段 1: 资产评估】
+基础估值 V_base
+$21.50 Billion" fillcolor="#DAE8FC"]
+	P2_Action [label="【阶段 2: 核心决策】
+针对: LeBron James (41岁)
+动作: 负荷管理 (Load Mgmt)" fillcolor="#FFF2CC" shape=component]
+	P2_Result [label="【模拟结果 Simulation】
+短期利润 Pi = $45.2M (略降)
+资产保值 Delta V = +$550.0M (大涨)" fillcolor="#D5E8D4"]
+	Final_Z [label="【最终目标 Z】
+Total Z = 322.84
+最优策略: 牺牲门票换估值" fillcolor="#F8CECC" fontcolor=black fontsize=14 shape=doubleoctagon style="filled,bold"]
+	Input -> Phase1 [label=" 公式(4)计算"]
+	Phase1 -> P2_Action [label=" 赛季开始"]
+	P2_Action -> P2_Result [label=" 蒙特卡洛模拟"]
+	P2_Result -> Final_Z [label=" 加权求和"]
+}

@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_cac3dfe54ee6952d47aec9c0edee217d {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+<div style="
+    position: fixed; 
+    bottom: 30px; left: 30px; 
+    width: 200px; 
+    background-color: rgba(255, 255, 255, 0.9); 
+    z-index:9999; 
+    font-size:12px;
+    border: 1px solid #ccc;
+    border-radius: 8px; 
+    padding: 15px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    font-family: Arial, sans-serif;
+    ">
+    <h4 style="margin-top:0; margin-bottom:10px;">Market Value Score</h4>
+
+    <div style="display:flex; align-items:center; margin-bottom:5px;">
+        <div style="width:15px; height:40px; background:#4A148C; border:1px solid #fff; margin-right:10px;"></div>
+        <div>
+            <b>Tier 2: Major</b><br>
+            <span style="color:#666;">Score > 60</span>
+        </div>
+    </div>
+
+    <div style="display:flex; align-items:center; margin-bottom:5px;">
+        <div style="width:15px; height:25px; background:#D32F2F; border:1px solid #fff; margin-right:10px;"></div>
+        <div>
+            <b>Tier 3: Mid</b><br>
+            <span style="color:#666;">Score 45 - 60</span>
+        </div>
+    </div>
+
+    <div style="display:flex; align-items:center;">
+        <div style="width:15px; height:10px; background:#F57C00; border:1px solid #fff; margin-right:10px;"></div>
+        <div>
+            <b>Tier 4: Small</b><br>
+            <span style="color:#666;">Score < 45</span>
+        </div>
+    </div>
+</div>
+    
+            <div class="folium-map" id="map_cac3dfe54ee6952d47aec9c0edee217d" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_cac3dfe54ee6952d47aec9c0edee217d = L.map(
+                "map_cac3dfe54ee6952d47aec9c0edee217d",
+                {
+                    center: [38.5, -96.0],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 4.5,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_ebf62a4e942ff0393b2d00be018dd255 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_ebf62a4e942ff0393b2d00be018dd255.addTo(map_cac3dfe54ee6952d47aec9c0edee217d);
+        
+    
+            var marker_c36c3c6c7cd0fcdc7d568fdd68221d40 = L.marker(
+                [40.7128, -74.006],
+                {
+}
+            ).addTo(map_cac3dfe54ee6952d47aec9c0edee217d);
+        
+    
+            var div_icon_815e42e917673dd90420f32a0e7cf574 = L.divIcon({
+  "html": "\n    \u003cdiv style=\"\n        width: 100px; \n        height: 208.07568px; \n        transform: translate(-50%, -100%); \n        pointer-events: none;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: flex-end;\n        \"\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial; \n            font-weight: bold; \n            font-size: 11px; \n            color: #4A148C;\n            margin-bottom: 2px;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            84.0\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            width: 14px;\n            height: 178.07568px;\n            background: linear-gradient(to bottom, #4A148C, #7B1FA2);\n            border: 1px solid white;\n            border-radius: 3px 3px 0 0;\n            box-shadow: 2px 2px 4px rgba(0,0,0,0.4);\n            \"\u003e\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial;\n            font-size: 9px;\n            color: #666;\n            margin-top: 2px;\n            white-space: nowrap;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            New York\n        \u003c/div\u003e\n    \u003c/div\u003e\n    ",
+  "className": "empty",
+});
+        
+    
+            marker_c36c3c6c7cd0fcdc7d568fdd68221d40.bindTooltip(
+                `<div>
+                     New York: 84.04 (Tier 2)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_c36c3c6c7cd0fcdc7d568fdd68221d40.setIcon(div_icon_815e42e917673dd90420f32a0e7cf574);
+            
+    
+            var marker_978f85738cae86c60d3c6f555396a872 = L.marker(
+                [37.7749, -122.4194],
+                {
+}
+            ).addTo(map_cac3dfe54ee6952d47aec9c0edee217d);
+        
+    
+            var div_icon_b93a2d975829c382ceea091abe289e62 = L.divIcon({
+  "html": "\n    \u003cdiv style=\"\n        width: 100px; \n        height: 186.350312px; \n        transform: translate(-50%, -100%); \n        pointer-events: none;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: flex-end;\n        \"\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial; \n            font-weight: bold; \n            font-size: 11px; \n            color: #4A148C;\n            margin-bottom: 2px;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            73.2\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            width: 14px;\n            height: 156.350312px;\n            background: linear-gradient(to bottom, #4A148C, #7B1FA2);\n            border: 1px solid white;\n            border-radius: 3px 3px 0 0;\n            box-shadow: 2px 2px 4px rgba(0,0,0,0.4);\n            \"\u003e\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial;\n            font-size: 9px;\n            color: #666;\n            margin-top: 2px;\n            white-space: nowrap;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            San Francisco\n        \u003c/div\u003e\n    \u003c/div\u003e\n    ",
+  "className": "empty",
+});
+        
+    
+            marker_978f85738cae86c60d3c6f555396a872.bindTooltip(
+                `<div>
+                     San Francisco: 73.18 (Tier 2)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_978f85738cae86c60d3c6f555396a872.setIcon(div_icon_b93a2d975829c382ceea091abe289e62);
+            
+    
+            var marker_bd6eb11f88e1bf7c5c62a700041ff1ed = L.marker(
+                [34.0522, -118.2437],
+                {
+}
+            ).addTo(map_cac3dfe54ee6952d47aec9c0edee217d);
+        
+    
+            var div_icon_0a6b400ca887a2f401135fcef8357ef1 = L.divIcon({
+  "html": "\n    \u003cdiv style=\"\n        width: 100px; \n        height: 172.580256px; \n        transform: translate(-50%, -100%); \n        pointer-events: none;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: flex-end;\n        \"\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial; \n            font-weight: bold; \n            font-size: 11px; \n            color: #4A148C;\n            margin-bottom: 2px;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            66.3\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            width: 14px;\n            height: 142.580256px;\n            background: linear-gradient(to bottom, #4A148C, #7B1FA2);\n            border: 1px solid white;\n            border-radius: 3px 3px 0 0;\n            box-shadow: 2px 2px 4px rgba(0,0,0,0.4);\n            \"\u003e\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial;\n            font-size: 9px;\n            color: #666;\n            margin-top: 2px;\n            white-space: nowrap;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            Los Angeles\n        \u003c/div\u003e\n    \u003c/div\u003e\n    ",
+  "className": "empty",
+});
+        
+    
+            marker_bd6eb11f88e1bf7c5c62a700041ff1ed.bindTooltip(
+                `<div>
+                     Los Angeles: 66.29 (Tier 2)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_bd6eb11f88e1bf7c5c62a700041ff1ed.setIcon(div_icon_0a6b400ca887a2f401135fcef8357ef1);
+            
+    
+            var marker_7e9e96c72cc8bc798fcf4d95db230af1 = L.marker(
+                [38.9072, -77.0369],
+                {
+}
+            ).addTo(map_cac3dfe54ee6952d47aec9c0edee217d);
+        
+    
+            var div_icon_008ee4b8821edc06d47287e09990ee89 = L.divIcon({
+  "html": "\n    \u003cdiv style=\"\n        width: 100px; \n        height: 158.83501px; \n        transform: translate(-50%, -100%); \n        pointer-events: none;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: flex-end;\n        \"\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial; \n            font-weight: bold; \n            font-size: 11px; \n            color: #D32F2F;\n            margin-bottom: 2px;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            59.4\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            width: 14px;\n            height: 128.83501px;\n            background: linear-gradient(to bottom, #D32F2F, #EF5350);\n            border: 1px solid white;\n            border-radius: 3px 3px 0 0;\n            box-shadow: 2px 2px 4px rgba(0,0,0,0.4);\n            \"\u003e\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial;\n            font-size: 9px;\n            color: #666;\n            margin-top: 2px;\n            white-space: nowrap;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            Washington, D.C.\n        \u003c/div\u003e\n    \u003c/div\u003e\n    ",
+  "className": "empty",
+});
+        
+    
+            marker_7e9e96c72cc8bc798fcf4d95db230af1.bindTooltip(
+                `<div>
+                     Washington, D.C.: 59.42 (Tier 3)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_7e9e96c72cc8bc798fcf4d95db230af1.setIcon(div_icon_008ee4b8821edc06d47287e09990ee89);
+            
+    
+            var marker_0535ca7d56de92165fbb8b9c3ab012be = L.marker(
+                [41.8781, -87.6298],
+                {
+}
+            ).addTo(map_cac3dfe54ee6952d47aec9c0edee217d);
+        
+    
+            var div_icon_708d93f683279df4031e9bccdfa6724d = L.divIcon({
+  "html": "\n    \u003cdiv style=\"\n        width: 100px; \n        height: 157.661462px; \n        transform: translate(-50%, -100%); \n        pointer-events: none;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: flex-end;\n        \"\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial; \n            font-weight: bold; \n            font-size: 11px; \n            color: #D32F2F;\n            margin-bottom: 2px;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            58.8\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            width: 14px;\n            height: 127.661462px;\n            background: linear-gradient(to bottom, #D32F2F, #EF5350);\n            border: 1px solid white;\n            border-radius: 3px 3px 0 0;\n            box-shadow: 2px 2px 4px rgba(0,0,0,0.4);\n            \"\u003e\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial;\n            font-size: 9px;\n            color: #666;\n            margin-top: 2px;\n            white-space: nowrap;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            Chicago\n        \u003c/div\u003e\n    \u003c/div\u003e\n    ",
+  "className": "empty",
+});
+        
+    
+            marker_0535ca7d56de92165fbb8b9c3ab012be.bindTooltip(
+                `<div>
+                     Chicago: 58.83 (Tier 3)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_0535ca7d56de92165fbb8b9c3ab012be.setIcon(div_icon_708d93f683279df4031e9bccdfa6724d);
+            
+    
+            var marker_269492c87b8dbbf514ffa73496cd1a68 = L.marker(
+                [42.3601, -71.0589],
+                {
+}
+            ).addTo(map_cac3dfe54ee6952d47aec9c0edee217d);
+        
+    
+            var div_icon_6724b89c30d1ab81646c7694776d2568 = L.divIcon({
+  "html": "\n    \u003cdiv style=\"\n        width: 100px; \n        height: 155.15763800000002px; \n        transform: translate(-50%, -100%); \n        pointer-events: none;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: flex-end;\n        \"\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial; \n            font-weight: bold; \n            font-size: 11px; \n            color: #D32F2F;\n            margin-bottom: 2px;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            57.6\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            width: 14px;\n            height: 125.157638px;\n            background: linear-gradient(to bottom, #D32F2F, #EF5350);\n            border: 1px solid white;\n            border-radius: 3px 3px 0 0;\n            box-shadow: 2px 2px 4px rgba(0,0,0,0.4);\n            \"\u003e\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial;\n            font-size: 9px;\n            color: #666;\n            margin-top: 2px;\n            white-space: nowrap;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            Boston\n        \u003c/div\u003e\n    \u003c/div\u003e\n    ",
+  "className": "empty",
+});
+        
+    
+            marker_269492c87b8dbbf514ffa73496cd1a68.bindTooltip(
+                `<div>
+                     Boston: 57.58 (Tier 3)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_269492c87b8dbbf514ffa73496cd1a68.setIcon(div_icon_6724b89c30d1ab81646c7694776d2568);
+            
+    
+            var marker_c0f98c366a3dda5ca31272b8bb4522a2 = L.marker(
+                [47.6062, -122.3321],
+                {
+}
+            ).addTo(map_cac3dfe54ee6952d47aec9c0edee217d);
+        
+    
+            var div_icon_8451306f8730641ebfb903cc789cfcd6 = L.divIcon({
+  "html": "\n    \u003cdiv style=\"\n        width: 100px; \n        height: 152.80572999999998px; \n        transform: translate(-50%, -100%); \n        pointer-events: none;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: flex-end;\n        \"\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial; \n            font-weight: bold; \n            font-size: 11px; \n            color: #D32F2F;\n            margin-bottom: 2px;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            56.4\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            width: 14px;\n            height: 122.80573px;\n            background: linear-gradient(to bottom, #D32F2F, #EF5350);\n            border: 1px solid white;\n            border-radius: 3px 3px 0 0;\n            box-shadow: 2px 2px 4px rgba(0,0,0,0.4);\n            \"\u003e\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial;\n            font-size: 9px;\n            color: #666;\n            margin-top: 2px;\n            white-space: nowrap;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            Seattle\n        \u003c/div\u003e\n    \u003c/div\u003e\n    ",
+  "className": "empty",
+});
+        
+    
+            marker_c0f98c366a3dda5ca31272b8bb4522a2.bindTooltip(
+                `<div>
+                     Seattle: 56.40 (Tier 3)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_c0f98c366a3dda5ca31272b8bb4522a2.setIcon(div_icon_8451306f8730641ebfb903cc789cfcd6);
+            
+    
+            var marker_29410a690f4784889122f3dc21a28922 = L.marker(
+                [32.7767, -96.797],
+                {
+}
+            ).addTo(map_cac3dfe54ee6952d47aec9c0edee217d);
+        
+    
+            var div_icon_1c56b0501149785b9adb455643e34428 = L.divIcon({
+  "html": "\n    \u003cdiv style=\"\n        width: 100px; \n        height: 145.720106px; \n        transform: translate(-50%, -100%); \n        pointer-events: none;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: flex-end;\n        \"\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial; \n            font-weight: bold; \n            font-size: 11px; \n            color: #D32F2F;\n            margin-bottom: 2px;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            52.9\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            width: 14px;\n            height: 115.720106px;\n            background: linear-gradient(to bottom, #D32F2F, #EF5350);\n            border: 1px solid white;\n            border-radius: 3px 3px 0 0;\n            box-shadow: 2px 2px 4px rgba(0,0,0,0.4);\n            \"\u003e\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial;\n            font-size: 9px;\n            color: #666;\n            margin-top: 2px;\n            white-space: nowrap;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            Dallas\n        \u003c/div\u003e\n    \u003c/div\u003e\n    ",
+  "className": "empty",
+});
+        
+    
+            marker_29410a690f4784889122f3dc21a28922.bindTooltip(
+                `<div>
+                     Dallas: 52.86 (Tier 3)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_29410a690f4784889122f3dc21a28922.setIcon(div_icon_1c56b0501149785b9adb455643e34428);
+            
+    
+            var marker_257afc73a97b6dfef871a3d0638d3497 = L.marker(
+                [33.749, -84.388],
+                {
+}
+            ).addTo(map_cac3dfe54ee6952d47aec9c0edee217d);
+        
+    
+            var div_icon_62b39f8ad50e2ec277681ccd38ebd012 = L.divIcon({
+  "html": "\n    \u003cdiv style=\"\n        width: 100px; \n        height: 137.134798px; \n        transform: translate(-50%, -100%); \n        pointer-events: none;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: flex-end;\n        \"\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial; \n            font-weight: bold; \n            font-size: 11px; \n            color: #D32F2F;\n            margin-bottom: 2px;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            48.6\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            width: 14px;\n            height: 107.134798px;\n            background: linear-gradient(to bottom, #D32F2F, #EF5350);\n            border: 1px solid white;\n            border-radius: 3px 3px 0 0;\n            box-shadow: 2px 2px 4px rgba(0,0,0,0.4);\n            \"\u003e\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial;\n            font-size: 9px;\n            color: #666;\n            margin-top: 2px;\n            white-space: nowrap;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            Atlanta\n        \u003c/div\u003e\n    \u003c/div\u003e\n    ",
+  "className": "empty",
+});
+        
+    
+            marker_257afc73a97b6dfef871a3d0638d3497.bindTooltip(
+                `<div>
+                     Atlanta: 48.57 (Tier 3)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_257afc73a97b6dfef871a3d0638d3497.setIcon(div_icon_62b39f8ad50e2ec277681ccd38ebd012);
+            
+    
+            var marker_d16fa142a10d21903948379b4a17e29c = L.marker(
+                [29.7604, -95.3698],
+                {
+}
+            ).addTo(map_cac3dfe54ee6952d47aec9c0edee217d);
+        
+    
+            var div_icon_30b77e8ee25db32a99bb2774d6701900 = L.divIcon({
+  "html": "\n    \u003cdiv style=\"\n        width: 100px; \n        height: 136.668944px; \n        transform: translate(-50%, -100%); \n        pointer-events: none;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: flex-end;\n        \"\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial; \n            font-weight: bold; \n            font-size: 11px; \n            color: #D32F2F;\n            margin-bottom: 2px;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            48.3\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            width: 14px;\n            height: 106.668944px;\n            background: linear-gradient(to bottom, #D32F2F, #EF5350);\n            border: 1px solid white;\n            border-radius: 3px 3px 0 0;\n            box-shadow: 2px 2px 4px rgba(0,0,0,0.4);\n            \"\u003e\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial;\n            font-size: 9px;\n            color: #666;\n            margin-top: 2px;\n            white-space: nowrap;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            Houston\n        \u003c/div\u003e\n    \u003c/div\u003e\n    ",
+  "className": "empty",
+});
+        
+    
+            marker_d16fa142a10d21903948379b4a17e29c.bindTooltip(
+                `<div>
+                     Houston: 48.33 (Tier 3)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_d16fa142a10d21903948379b4a17e29c.setIcon(div_icon_30b77e8ee25db32a99bb2774d6701900);
+            
+    
+            var marker_e59686aa9947b2114b233cf11e2022a4 = L.marker(
+                [43.651, -79.347],
+                {
+}
+            ).addTo(map_cac3dfe54ee6952d47aec9c0edee217d);
+        
+    
+            var div_icon_c722c139d5c24240a4310c01f8e12f69 = L.divIcon({
+  "html": "\n    \u003cdiv style=\"\n        width: 100px; \n        height: 128.908368px; \n        transform: translate(-50%, -100%); \n        pointer-events: none;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: flex-end;\n        \"\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial; \n            font-weight: bold; \n            font-size: 11px; \n            color: #F57C00;\n            margin-bottom: 2px;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            44.5\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            width: 14px;\n            height: 98.908368px;\n            background: linear-gradient(to bottom, #F57C00, #FF9800);\n            border: 1px solid white;\n            border-radius: 3px 3px 0 0;\n            box-shadow: 2px 2px 4px rgba(0,0,0,0.4);\n            \"\u003e\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial;\n            font-size: 9px;\n            color: #666;\n            margin-top: 2px;\n            white-space: nowrap;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            Toronto\n        \u003c/div\u003e\n    \u003c/div\u003e\n    ",
+  "className": "empty",
+});
+        
+    
+            marker_e59686aa9947b2114b233cf11e2022a4.bindTooltip(
+                `<div>
+                     Toronto: 44.45 (Tier 4)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_e59686aa9947b2114b233cf11e2022a4.setIcon(div_icon_c722c139d5c24240a4310c01f8e12f69);
+            
+    
+            var marker_40b806a63eb1d38ade9c5208e029ddf3 = L.marker(
+                [39.9526, -75.1652],
+                {
+}
+            ).addTo(map_cac3dfe54ee6952d47aec9c0edee217d);
+        
+    
+            var div_icon_3e2ad7e02483d6dfa06aba103086205b = L.divIcon({
+  "html": "\n    \u003cdiv style=\"\n        width: 100px; \n        height: 124.357898px; \n        transform: translate(-50%, -100%); \n        pointer-events: none;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: flex-end;\n        \"\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial; \n            font-weight: bold; \n            font-size: 11px; \n            color: #F57C00;\n            margin-bottom: 2px;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            42.2\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            width: 14px;\n            height: 94.357898px;\n            background: linear-gradient(to bottom, #F57C00, #FF9800);\n            border: 1px solid white;\n            border-radius: 3px 3px 0 0;\n            box-shadow: 2px 2px 4px rgba(0,0,0,0.4);\n            \"\u003e\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial;\n            font-size: 9px;\n            color: #666;\n            margin-top: 2px;\n            white-space: nowrap;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            Philadelphia\n        \u003c/div\u003e\n    \u003c/div\u003e\n    ",
+  "className": "empty",
+});
+        
+    
+            marker_40b806a63eb1d38ade9c5208e029ddf3.bindTooltip(
+                `<div>
+                     Philadelphia: 42.18 (Tier 4)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_40b806a63eb1d38ade9c5208e029ddf3.setIcon(div_icon_3e2ad7e02483d6dfa06aba103086205b);
+            
+    
+            var marker_46550da019029c27b569005956560257 = L.marker(
+                [25.7617, -80.1918],
+                {
+}
+            ).addTo(map_cac3dfe54ee6952d47aec9c0edee217d);
+        
+    
+            var div_icon_34783b8b1f9f90b99943bbc26c1733a1 = L.divIcon({
+  "html": "\n    \u003cdiv style=\"\n        width: 100px; \n        height: 123.335782px; \n        transform: translate(-50%, -100%); \n        pointer-events: none;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: flex-end;\n        \"\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial; \n            font-weight: bold; \n            font-size: 11px; \n            color: #F57C00;\n            margin-bottom: 2px;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            41.7\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            width: 14px;\n            height: 93.335782px;\n            background: linear-gradient(to bottom, #F57C00, #FF9800);\n            border: 1px solid white;\n            border-radius: 3px 3px 0 0;\n            box-shadow: 2px 2px 4px rgba(0,0,0,0.4);\n            \"\u003e\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial;\n            font-size: 9px;\n            color: #666;\n            margin-top: 2px;\n            white-space: nowrap;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            Miami\n        \u003c/div\u003e\n    \u003c/div\u003e\n    ",
+  "className": "empty",
+});
+        
+    
+            marker_46550da019029c27b569005956560257.bindTooltip(
+                `<div>
+                     Miami: 41.67 (Tier 4)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_46550da019029c27b569005956560257.setIcon(div_icon_34783b8b1f9f90b99943bbc26c1733a1);
+            
+    
+            var marker_2a2bfc963cd74c1d4c19f5059bcce893 = L.marker(
+                [39.7392, -104.9903],
+                {
+}
+            ).addTo(map_cac3dfe54ee6952d47aec9c0edee217d);
+        
+    
+            var div_icon_744fcd1022910246da3d819e920f04e7 = L.divIcon({
+  "html": "\n    \u003cdiv style=\"\n        width: 100px; \n        height: 119.121564px; \n        transform: translate(-50%, -100%); \n        pointer-events: none;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: flex-end;\n        \"\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial; \n            font-weight: bold; \n            font-size: 11px; \n            color: #F57C00;\n            margin-bottom: 2px;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            39.6\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            width: 14px;\n            height: 89.121564px;\n            background: linear-gradient(to bottom, #F57C00, #FF9800);\n            border: 1px solid white;\n            border-radius: 3px 3px 0 0;\n            box-shadow: 2px 2px 4px rgba(0,0,0,0.4);\n            \"\u003e\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial;\n            font-size: 9px;\n            color: #666;\n            margin-top: 2px;\n            white-space: nowrap;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            Denver\n        \u003c/div\u003e\n    \u003c/div\u003e\n    ",
+  "className": "empty",
+});
+        
+    
+            marker_2a2bfc963cd74c1d4c19f5059bcce893.bindTooltip(
+                `<div>
+                     Denver: 39.56 (Tier 4)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_2a2bfc963cd74c1d4c19f5059bcce893.setIcon(div_icon_744fcd1022910246da3d819e920f04e7);
+            
+    
+            var marker_e39d38db97173ed8900659ccff512d8c = L.marker(
+                [36.1699, -115.1398],
+                {
+}
+            ).addTo(map_cac3dfe54ee6952d47aec9c0edee217d);
+        
+    
+            var div_icon_86fefd4a3ff3be5b01f11fbbb9d58848 = L.divIcon({
+  "html": "\n    \u003cdiv style=\"\n        width: 100px; \n        height: 107.72719px; \n        transform: translate(-50%, -100%); \n        pointer-events: none;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: flex-end;\n        \"\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial; \n            font-weight: bold; \n            font-size: 11px; \n            color: #F57C00;\n            margin-bottom: 2px;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            33.9\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            width: 14px;\n            height: 77.72719px;\n            background: linear-gradient(to bottom, #F57C00, #FF9800);\n            border: 1px solid white;\n            border-radius: 3px 3px 0 0;\n            box-shadow: 2px 2px 4px rgba(0,0,0,0.4);\n            \"\u003e\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial;\n            font-size: 9px;\n            color: #666;\n            margin-top: 2px;\n            white-space: nowrap;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            Las Vegas\n        \u003c/div\u003e\n    \u003c/div\u003e\n    ",
+  "className": "empty",
+});
+        
+    
+            marker_e39d38db97173ed8900659ccff512d8c.bindTooltip(
+                `<div>
+                     Las Vegas: 33.86 (Tier 4)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_e39d38db97173ed8900659ccff512d8c.setIcon(div_icon_86fefd4a3ff3be5b01f11fbbb9d58848);
+            
+    
+            var marker_7704bd3de25ff310b51e4c2f7e9e34a5 = L.marker(
+                [33.4484, -112.074],
+                {
+}
+            ).addTo(map_cac3dfe54ee6952d47aec9c0edee217d);
+        
+    
+            var div_icon_1d96ae935fa400861ff19b7b4f0a4182 = L.divIcon({
+  "html": "\n    \u003cdiv style=\"\n        width: 100px; \n        height: 107.2634px; \n        transform: translate(-50%, -100%); \n        pointer-events: none;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: flex-end;\n        \"\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial; \n            font-weight: bold; \n            font-size: 11px; \n            color: #F57C00;\n            margin-bottom: 2px;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            33.6\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            width: 14px;\n            height: 77.2634px;\n            background: linear-gradient(to bottom, #F57C00, #FF9800);\n            border: 1px solid white;\n            border-radius: 3px 3px 0 0;\n            box-shadow: 2px 2px 4px rgba(0,0,0,0.4);\n            \"\u003e\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial;\n            font-size: 9px;\n            color: #666;\n            margin-top: 2px;\n            white-space: nowrap;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            Phoenix\n        \u003c/div\u003e\n    \u003c/div\u003e\n    ",
+  "className": "empty",
+});
+        
+    
+            marker_7704bd3de25ff310b51e4c2f7e9e34a5.bindTooltip(
+                `<div>
+                     Phoenix: 33.63 (Tier 4)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_7704bd3de25ff310b51e4c2f7e9e34a5.setIcon(div_icon_1d96ae935fa400861ff19b7b4f0a4182);
+            
+    
+            var marker_0919f16df06ab76811d577ce4d5a4667 = L.marker(
+                [44.9778, -93.265],
+                {
+}
+            ).addTo(map_cac3dfe54ee6952d47aec9c0edee217d);
+        
+    
+            var div_icon_8164d2545fec5202b5d31f207209770e = L.divIcon({
+  "html": "\n    \u003cdiv style=\"\n        width: 100px; \n        height: 105.984122px; \n        transform: translate(-50%, -100%); \n        pointer-events: none;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: flex-end;\n        \"\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial; \n            font-weight: bold; \n            font-size: 11px; \n            color: #F57C00;\n            margin-bottom: 2px;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            33.0\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            width: 14px;\n            height: 75.984122px;\n            background: linear-gradient(to bottom, #F57C00, #FF9800);\n            border: 1px solid white;\n            border-radius: 3px 3px 0 0;\n            box-shadow: 2px 2px 4px rgba(0,0,0,0.4);\n            \"\u003e\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial;\n            font-size: 9px;\n            color: #666;\n            margin-top: 2px;\n            white-space: nowrap;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            Minneapolis\n        \u003c/div\u003e\n    \u003c/div\u003e\n    ",
+  "className": "empty",
+});
+        
+    
+            marker_0919f16df06ab76811d577ce4d5a4667.bindTooltip(
+                `<div>
+                     Minneapolis: 32.99 (Tier 4)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_0919f16df06ab76811d577ce4d5a4667.setIcon(div_icon_8164d2545fec5202b5d31f207209770e);
+            
+    
+            var marker_f1ef761d2b68a4b96d7d242f7222548a = L.marker(
+                [35.2271, -80.8431],
+                {
+}
+            ).addTo(map_cac3dfe54ee6952d47aec9c0edee217d);
+        
+    
+            var div_icon_24847d15112e1ebb851697e297b844ed = L.divIcon({
+  "html": "\n    \u003cdiv style=\"\n        width: 100px; \n        height: 91.502258px; \n        transform: translate(-50%, -100%); \n        pointer-events: none;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: flex-end;\n        \"\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial; \n            font-weight: bold; \n            font-size: 11px; \n            color: #F57C00;\n            margin-bottom: 2px;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            25.8\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            width: 14px;\n            height: 61.502258px;\n            background: linear-gradient(to bottom, #F57C00, #FF9800);\n            border: 1px solid white;\n            border-radius: 3px 3px 0 0;\n            box-shadow: 2px 2px 4px rgba(0,0,0,0.4);\n            \"\u003e\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial;\n            font-size: 9px;\n            color: #666;\n            margin-top: 2px;\n            white-space: nowrap;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            Charlotte\n        \u003c/div\u003e\n    \u003c/div\u003e\n    ",
+  "className": "empty",
+});
+        
+    
+            marker_f1ef761d2b68a4b96d7d242f7222548a.bindTooltip(
+                `<div>
+                     Charlotte: 25.75 (Tier 4)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_f1ef761d2b68a4b96d7d242f7222548a.setIcon(div_icon_24847d15112e1ebb851697e297b844ed);
+            
+    
+            var marker_6be20ffd1ec70d0a269414e2ac103c36 = L.marker(
+                [45.5152, -122.6784],
+                {
+}
+            ).addTo(map_cac3dfe54ee6952d47aec9c0edee217d);
+        
+    
+            var div_icon_ba2d8ce329ce9be76a926d3b067fe2c7 = L.divIcon({
+  "html": "\n    \u003cdiv style=\"\n        width: 100px; \n        height: 87.71795399999999px; \n        transform: translate(-50%, -100%); \n        pointer-events: none;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: flex-end;\n        \"\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial; \n            font-weight: bold; \n            font-size: 11px; \n            color: #F57C00;\n            margin-bottom: 2px;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            23.9\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            width: 14px;\n            height: 57.717954px;\n            background: linear-gradient(to bottom, #F57C00, #FF9800);\n            border: 1px solid white;\n            border-radius: 3px 3px 0 0;\n            box-shadow: 2px 2px 4px rgba(0,0,0,0.4);\n            \"\u003e\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial;\n            font-size: 9px;\n            color: #666;\n            margin-top: 2px;\n            white-space: nowrap;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            Portland\n        \u003c/div\u003e\n    \u003c/div\u003e\n    ",
+  "className": "empty",
+});
+        
+    
+            marker_6be20ffd1ec70d0a269414e2ac103c36.bindTooltip(
+                `<div>
+                     Portland: 23.86 (Tier 4)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_6be20ffd1ec70d0a269414e2ac103c36.setIcon(div_icon_ba2d8ce329ce9be76a926d3b067fe2c7);
+            
+    
+            var marker_368d34129a0ac37b27c31ff70c68821f = L.marker(
+                [42.3314, -83.0458],
+                {
+}
+            ).addTo(map_cac3dfe54ee6952d47aec9c0edee217d);
+        
+    
+            var div_icon_1e15c4bb2d132e1331d3ea197b3690c4 = L.divIcon({
+  "html": "\n    \u003cdiv style=\"\n        width: 100px; \n        height: 86.89959400000001px; \n        transform: translate(-50%, -100%); \n        pointer-events: none;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: flex-end;\n        \"\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial; \n            font-weight: bold; \n            font-size: 11px; \n            color: #F57C00;\n            margin-bottom: 2px;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            23.4\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            width: 14px;\n            height: 56.899594px;\n            background: linear-gradient(to bottom, #F57C00, #FF9800);\n            border: 1px solid white;\n            border-radius: 3px 3px 0 0;\n            box-shadow: 2px 2px 4px rgba(0,0,0,0.4);\n            \"\u003e\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial;\n            font-size: 9px;\n            color: #666;\n            margin-top: 2px;\n            white-space: nowrap;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            Detroit\n        \u003c/div\u003e\n    \u003c/div\u003e\n    ",
+  "className": "empty",
+});
+        
+    
+            marker_368d34129a0ac37b27c31ff70c68821f.bindTooltip(
+                `<div>
+                     Detroit: 23.45 (Tier 4)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_368d34129a0ac37b27c31ff70c68821f.setIcon(div_icon_1e15c4bb2d132e1331d3ea197b3690c4);
+            
+    
+            var marker_f994ee91189859b2dd74f40f49825875 = L.marker(
+                [29.4241, -98.4936],
+                {
+}
+            ).addTo(map_cac3dfe54ee6952d47aec9c0edee217d);
+        
+    
+            var div_icon_a53a0576d9273bfb84c10c9e4b2537a5 = L.divIcon({
+  "html": "\n    \u003cdiv style=\"\n        width: 100px; \n        height: 85.32558800000001px; \n        transform: translate(-50%, -100%); \n        pointer-events: none;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: flex-end;\n        \"\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial; \n            font-weight: bold; \n            font-size: 11px; \n            color: #F57C00;\n            margin-bottom: 2px;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            22.7\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            width: 14px;\n            height: 55.325588px;\n            background: linear-gradient(to bottom, #F57C00, #FF9800);\n            border: 1px solid white;\n            border-radius: 3px 3px 0 0;\n            box-shadow: 2px 2px 4px rgba(0,0,0,0.4);\n            \"\u003e\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial;\n            font-size: 9px;\n            color: #666;\n            margin-top: 2px;\n            white-space: nowrap;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            San Antonio\n        \u003c/div\u003e\n    \u003c/div\u003e\n    ",
+  "className": "empty",
+});
+        
+    
+            marker_f994ee91189859b2dd74f40f49825875.bindTooltip(
+                `<div>
+                     San Antonio: 22.66 (Tier 4)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_f994ee91189859b2dd74f40f49825875.setIcon(div_icon_a53a0576d9273bfb84c10c9e4b2537a5);
+            
+    
+            var marker_2ff84fc54f1109c79822410b8233160f = L.marker(
+                [40.7608, -111.891],
+                {
+}
+            ).addTo(map_cac3dfe54ee6952d47aec9c0edee217d);
+        
+    
+            var div_icon_40270af746289fcb096be376e7cca34c = L.divIcon({
+  "html": "\n    \u003cdiv style=\"\n        width: 100px; \n        height: 84.97247px; \n        transform: translate(-50%, -100%); \n        pointer-events: none;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: flex-end;\n        \"\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial; \n            font-weight: bold; \n            font-size: 11px; \n            color: #F57C00;\n            margin-bottom: 2px;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            22.5\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            width: 14px;\n            height: 54.97247px;\n            background: linear-gradient(to bottom, #F57C00, #FF9800);\n            border: 1px solid white;\n            border-radius: 3px 3px 0 0;\n            box-shadow: 2px 2px 4px rgba(0,0,0,0.4);\n            \"\u003e\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial;\n            font-size: 9px;\n            color: #666;\n            margin-top: 2px;\n            white-space: nowrap;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            Salt Lake City\n        \u003c/div\u003e\n    \u003c/div\u003e\n    ",
+  "className": "empty",
+});
+        
+    
+            marker_2ff84fc54f1109c79822410b8233160f.bindTooltip(
+                `<div>
+                     Salt Lake City: 22.49 (Tier 4)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_2ff84fc54f1109c79822410b8233160f.setIcon(div_icon_40270af746289fcb096be376e7cca34c);
+            
+    
+            var marker_2514d3712d683957d7db3cfe3b3bf54a = L.marker(
+                [39.7684, -86.1581],
+                {
+}
+            ).addTo(map_cac3dfe54ee6952d47aec9c0edee217d);
+        
+    
+            var div_icon_9b0fb754115c7b0f5d2f34b2ee519abd = L.divIcon({
+  "html": "\n    \u003cdiv style=\"\n        width: 100px; \n        height: 74.800588px; \n        transform: translate(-50%, -100%); \n        pointer-events: none;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: flex-end;\n        \"\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial; \n            font-weight: bold; \n            font-size: 11px; \n            color: #F57C00;\n            margin-bottom: 2px;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            17.4\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            width: 14px;\n            height: 44.800588px;\n            background: linear-gradient(to bottom, #F57C00, #FF9800);\n            border: 1px solid white;\n            border-radius: 3px 3px 0 0;\n            box-shadow: 2px 2px 4px rgba(0,0,0,0.4);\n            \"\u003e\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial;\n            font-size: 9px;\n            color: #666;\n            margin-top: 2px;\n            white-space: nowrap;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            Indianapolis\n        \u003c/div\u003e\n    \u003c/div\u003e\n    ",
+  "className": "empty",
+});
+        
+    
+            marker_2514d3712d683957d7db3cfe3b3bf54a.bindTooltip(
+                `<div>
+                     Indianapolis: 17.40 (Tier 4)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_2514d3712d683957d7db3cfe3b3bf54a.setIcon(div_icon_9b0fb754115c7b0f5d2f34b2ee519abd);
+            
+    
+            var marker_4187d88eadd7fb2cd0de3be870f62a79 = L.marker(
+                [38.5816, -121.4944],
+                {
+}
+            ).addTo(map_cac3dfe54ee6952d47aec9c0edee217d);
+        
+    
+            var div_icon_1911147bd7bb8077924063d83bf26c92 = L.divIcon({
+  "html": "\n    \u003cdiv style=\"\n        width: 100px; \n        height: 71.34029px; \n        transform: translate(-50%, -100%); \n        pointer-events: none;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: flex-end;\n        \"\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial; \n            font-weight: bold; \n            font-size: 11px; \n            color: #F57C00;\n            margin-bottom: 2px;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            15.7\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            width: 14px;\n            height: 41.340289999999996px;\n            background: linear-gradient(to bottom, #F57C00, #FF9800);\n            border: 1px solid white;\n            border-radius: 3px 3px 0 0;\n            box-shadow: 2px 2px 4px rgba(0,0,0,0.4);\n            \"\u003e\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial;\n            font-size: 9px;\n            color: #666;\n            margin-top: 2px;\n            white-space: nowrap;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            Sacramento\n        \u003c/div\u003e\n    \u003c/div\u003e\n    ",
+  "className": "empty",
+});
+        
+    
+            marker_4187d88eadd7fb2cd0de3be870f62a79.bindTooltip(
+                `<div>
+                     Sacramento: 15.67 (Tier 4)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_4187d88eadd7fb2cd0de3be870f62a79.setIcon(div_icon_1911147bd7bb8077924063d83bf26c92);
+            
+    
+            var marker_079cee8ce0055c6c300710885b6bbd99 = L.marker(
+                [43.0389, -87.9065],
+                {
+}
+            ).addTo(map_cac3dfe54ee6952d47aec9c0edee217d);
+        
+    
+            var div_icon_3e6c65341ec97b08099a4cb45f4aabd4 = L.divIcon({
+  "html": "\n    \u003cdiv style=\"\n        width: 100px; \n        height: 68.387762px; \n        transform: translate(-50%, -100%); \n        pointer-events: none;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: flex-end;\n        \"\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial; \n            font-weight: bold; \n            font-size: 11px; \n            color: #F57C00;\n            margin-bottom: 2px;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            14.2\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            width: 14px;\n            height: 38.387761999999995px;\n            background: linear-gradient(to bottom, #F57C00, #FF9800);\n            border: 1px solid white;\n            border-radius: 3px 3px 0 0;\n            box-shadow: 2px 2px 4px rgba(0,0,0,0.4);\n            \"\u003e\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial;\n            font-size: 9px;\n            color: #666;\n            margin-top: 2px;\n            white-space: nowrap;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            Milwaukee\n        \u003c/div\u003e\n    \u003c/div\u003e\n    ",
+  "className": "empty",
+});
+        
+    
+            marker_079cee8ce0055c6c300710885b6bbd99.bindTooltip(
+                `<div>
+                     Milwaukee: 14.19 (Tier 4)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_079cee8ce0055c6c300710885b6bbd99.setIcon(div_icon_3e6c65341ec97b08099a4cb45f4aabd4);
+            
+    
+            var marker_74676dfcbc8ab1b30d9f84ad4e3b8274 = L.marker(
+                [41.4993, -81.6944],
+                {
+}
+            ).addTo(map_cac3dfe54ee6952d47aec9c0edee217d);
+        
+    
+            var div_icon_618c2fe22f41185a0ecc1663d91b40e2 = L.divIcon({
+  "html": "\n    \u003cdiv style=\"\n        width: 100px; \n        height: 67.90381px; \n        transform: translate(-50%, -100%); \n        pointer-events: none;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: flex-end;\n        \"\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial; \n            font-weight: bold; \n            font-size: 11px; \n            color: #F57C00;\n            margin-bottom: 2px;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            14.0\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            width: 14px;\n            height: 37.90381px;\n            background: linear-gradient(to bottom, #F57C00, #FF9800);\n            border: 1px solid white;\n            border-radius: 3px 3px 0 0;\n            box-shadow: 2px 2px 4px rgba(0,0,0,0.4);\n            \"\u003e\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial;\n            font-size: 9px;\n            color: #666;\n            margin-top: 2px;\n            white-space: nowrap;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            Cleveland\n        \u003c/div\u003e\n    \u003c/div\u003e\n    ",
+  "className": "empty",
+});
+        
+    
+            marker_74676dfcbc8ab1b30d9f84ad4e3b8274.bindTooltip(
+                `<div>
+                     Cleveland: 13.95 (Tier 4)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_74676dfcbc8ab1b30d9f84ad4e3b8274.setIcon(div_icon_618c2fe22f41185a0ecc1663d91b40e2);
+            
+    
+            var marker_c0fd727dedf9d1abada445c2716deacf = L.marker(
+                [35.4676, -97.5164],
+                {
+}
+            ).addTo(map_cac3dfe54ee6952d47aec9c0edee217d);
+        
+    
+            var div_icon_71b7cae94ae9a12ef1e9b57a309a48af = L.divIcon({
+  "html": "\n    \u003cdiv style=\"\n        width: 100px; \n        height: 49.299336px; \n        transform: translate(-50%, -100%); \n        pointer-events: none;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: flex-end;\n        \"\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial; \n            font-weight: bold; \n            font-size: 11px; \n            color: #F57C00;\n            margin-bottom: 2px;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            4.6\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            width: 14px;\n            height: 19.299336px;\n            background: linear-gradient(to bottom, #F57C00, #FF9800);\n            border: 1px solid white;\n            border-radius: 3px 3px 0 0;\n            box-shadow: 2px 2px 4px rgba(0,0,0,0.4);\n            \"\u003e\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial;\n            font-size: 9px;\n            color: #666;\n            margin-top: 2px;\n            white-space: nowrap;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            Oklahoma City\n        \u003c/div\u003e\n    \u003c/div\u003e\n    ",
+  "className": "empty",
+});
+        
+    
+            marker_c0fd727dedf9d1abada445c2716deacf.bindTooltip(
+                `<div>
+                     Oklahoma City: 4.65 (Tier 4)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_c0fd727dedf9d1abada445c2716deacf.setIcon(div_icon_71b7cae94ae9a12ef1e9b57a309a48af);
+            
+    
+            var marker_7267d8150aaf769104054f0a5db586a0 = L.marker(
+                [35.1495, -90.049],
+                {
+}
+            ).addTo(map_cac3dfe54ee6952d47aec9c0edee217d);
+        
+    
+            var div_icon_1739fe23152fabbfac1217e25758f73d = L.divIcon({
+  "html": "\n    \u003cdiv style=\"\n        width: 100px; \n        height: 46.713902000000004px; \n        transform: translate(-50%, -100%); \n        pointer-events: none;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: flex-end;\n        \"\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial; \n            font-weight: bold; \n            font-size: 11px; \n            color: #F57C00;\n            margin-bottom: 2px;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            3.4\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            width: 14px;\n            height: 16.713902px;\n            background: linear-gradient(to bottom, #F57C00, #FF9800);\n            border: 1px solid white;\n            border-radius: 3px 3px 0 0;\n            box-shadow: 2px 2px 4px rgba(0,0,0,0.4);\n            \"\u003e\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial;\n            font-size: 9px;\n            color: #666;\n            margin-top: 2px;\n            white-space: nowrap;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            Memphis\n        \u003c/div\u003e\n    \u003c/div\u003e\n    ",
+  "className": "empty",
+});
+        
+    
+            marker_7267d8150aaf769104054f0a5db586a0.bindTooltip(
+                `<div>
+                     Memphis: 3.36 (Tier 4)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_7267d8150aaf769104054f0a5db586a0.setIcon(div_icon_1739fe23152fabbfac1217e25758f73d);
+            
+    
+            var marker_3ca8a259e33bbcf72f22d61cc16fbb79 = L.marker(
+                [29.9511, -90.0715],
+                {
+}
+            ).addTo(map_cac3dfe54ee6952d47aec9c0edee217d);
+        
+    
+            var div_icon_c6adc7e7fa69a8b452bb22ef28414f2d = L.divIcon({
+  "html": "\n    \u003cdiv style=\"\n        width: 100px; \n        height: 40.0px; \n        transform: translate(-50%, -100%); \n        pointer-events: none;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: flex-end;\n        \"\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial; \n            font-weight: bold; \n            font-size: 11px; \n            color: #F57C00;\n            margin-bottom: 2px;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            0.0\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            width: 14px;\n            height: 10.0px;\n            background: linear-gradient(to bottom, #F57C00, #FF9800);\n            border: 1px solid white;\n            border-radius: 3px 3px 0 0;\n            box-shadow: 2px 2px 4px rgba(0,0,0,0.4);\n            \"\u003e\n        \u003c/div\u003e\n\n        \u003cdiv style=\"\n            font-family: Arial;\n            font-size: 9px;\n            color: #666;\n            margin-top: 2px;\n            white-space: nowrap;\n            text-shadow: 1px 1px 0 #fff;\n            \"\u003e\n            New Orleans\n        \u003c/div\u003e\n    \u003c/div\u003e\n    ",
+  "className": "empty",
+});
+        
+    
+            marker_3ca8a259e33bbcf72f22d61cc16fbb79.bindTooltip(
+                `<div>
+                     New Orleans: 0.00 (Tier 4)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_3ca8a259e33bbcf72f22d61cc16fbb79.setIcon(div_icon_c6adc7e7fa69a8b452bb22ef28414f2d);
+            
+</script>
+</html>
